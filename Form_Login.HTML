@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e1e2f;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background: #2c2c3c;
+            padding: 30px;
+            border-radius: 10px;
+            width: 350px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #3f51b5;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #3f51b5;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #303f9f;
+        }
+
+        .error {
+            color: #ff5252;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success {
+            color: #4caf50;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm"  method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="password" placeholder="Enter username">
+                <div id="userError" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"placeholder="Enter password">
+                <div id="passError" class="error"></div>
+            </div>
+            <button type="submit" class="btn">Login</button>
+            <div id="result"></div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const userError = document.getElementById('userError');
+        const passError = document.getElementById('passError');
+        const result = document.getElementById('result');
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let valid = true;
+        userError.textContent = '';
+        passError.textContent = '';
+        result.textContent = '';
+
+        if (username.value.trim() === '') {
+            userError.textContent = 'Username tidak boleh kosong';
+            valid = false;
+        }
+        if (password.value.trim() === '') {
+            passError.textContent = 'Password tidak boleh kosong';
+            valid = false;
+        }
+
+        if (valid) {
+            fetch('Login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `username=${encodeURIComponent(username.value)}&password=${encodeURIComponent(password.value)}`
+            })
+             .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        window.location.href = "Index1.php"; // pindah manual di JS
+                    } else {
+                        result.textContent = data.message;
+                        result.className = 'error';
+                    }
+                })
+        }
+    });
+    </script>
+</body>
+
+</html>
