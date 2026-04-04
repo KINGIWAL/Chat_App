@@ -66,8 +66,7 @@ if (!isset($_SESSION['username'])) {
         const chatHeader = document.getElementById('chatHeader');
         const contacts = document.querySelectorAll('.contact');
         const currentUser = Number(<?= json_encode($_SESSION['id_user'] ?? 0) ?>);
-        // Buka koneksi WebSocket (sertakan id_user sebagai query param)
-        const socket = new WebSocket(`ws://localhost:8081/chat?id_user=${currentUser}`);
+
         let currentContact = null;
         </script>
     

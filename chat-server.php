@@ -1,9 +1,13 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
-use Ratchet\App;
+use Ratchet\Http\HttpServer;
+use Ratchet\Server\IoServer;
+use Ratchet\WebSocket\WsServer;
+
 
 class ChatServer implements MessageComponentInterface {
     /** @var \SplObjectStorage */
@@ -11,7 +15,6 @@ class ChatServer implements MessageComponentInterface {
 
     public function __construct() {
         $this->clients = new \SplObjectStorage;
-        echo "WebSocket server running on ws://0.0.0.0:8081/chat\n";
     }
 
     public function onOpen(ConnectionInterface $conn) {
@@ -92,8 +95,14 @@ class ChatServer implements MessageComponentInterface {
     }
 }
 
-// Jalankan server Ratchet pada host localhost port 8080 dan route /chat
-$app = new App('localhost', 8081);
-$app->route('/chat', new ChatServer, ['*']);
-echo "WebSocket server running on ws://0.0.0.0:8081/chat\n";
-$app->run();
+$server = IoServer::factory(
+    new HttpServer(
+        new WsServer(new ChatServer())
+    ),
+    8081,
+    '0.0.0.0' // penting
+);
+
+echo "WebSocket server running on ws://0.0.0.0:8081\n";
+
+$server->run();

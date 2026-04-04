@@ -10,9 +10,11 @@ function loadContacts() {
             const contacts = document.querySelectorAll('.contact');
             contacts.forEach(contact => {
                 contact.addEventListener('click', () => {
-                    currentContact = contact.dataset.id; // id_penerima pesan  berupa int
-                    chatHeader.textContent = "Chat with " + contact.textContent;//menampilkan dibagian header supaya dinamis
-                    loadMessages(currentContact); // ambil pesan untuk kontak ini
+                    currentContact = Number(contact.dataset.id);
+                    chatHeader.textContent = "Chat with " + contact.textContent;
+
+                    chatMessages.innerHTML = "";
+                    loadMessages(currentContact);
                 });
             });
         })
@@ -44,26 +46,36 @@ function loadMessages(currentContact) {
         })
         .catch(error => console.error("Error load messages:", error));
 }
-
+let socket;
 function connectWebSocket() {
-
+    // Buka koneksi WebSocket (sertakan id_user sebagai query param)
+    socket = new WebSocket(`ws://192.168.1.3:8081?id_user=${currentUser}`);
 socket.addEventListener("open", () => {
     console.log("Connected to WebSocket server");
 });
 
-socket.addEventListener("message", (event) => {
-    const data = JSON.parse(event.data);
-    const isSent = data.id_pengirim === currentUser;
-    const bubble = document.createElement('div');
-    bubble.className = `message ${isSent ? 'sent' : 'received'}`;
-    bubble.innerHTML = `<div class="bubble">${data.text}</div><div class="time">${data.time}</div>`;
-    if (
-        data.id_pengirim == currentContact ||
-        data.id_penerima == currentContact
-    ) {
-        chatMessages.appendChild(bubble);
-    }
-});
+    socket.addEventListener("message", (event) => {
+        const data = JSON.parse(event.data);
+
+        if (!currentContact) return;
+
+        if (
+            (data.id_pengirim == currentUser && data.id_penerima == currentContact) ||
+            (data.id_pengirim == currentContact && data.id_penerima == currentUser)
+        ) {
+            const isSent = data.id_pengirim == currentUser;
+
+            const bubble = document.createElement('div');
+            bubble.className = `message ${isSent ? 'sent' : 'received'}`;
+            bubble.innerHTML = `
+            <div class="bubble">${data.text}</div>
+            <div class="time">${data.time}</div>
+        `;
+
+            chatMessages.appendChild(bubble);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    });
 socket.addEventListener("close", () => {
     console.log("Disconnected, reconnecting...");
     setTimeout(connectWebSocket, 2000); // reconnect TANPA reload
