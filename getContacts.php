@@ -14,7 +14,8 @@ if ($conn->connect_error) {
 
 $id_user = $_SESSION['id_user']; // user yang login
 
-$sql = "SELECT id_kontak, nama, nomor FROM kontak WHERE id_user = ?";
+// query untuk mengambil kontak yang dimiliki user berdasarkan id user di tabel kontak 
+$sql = "SELECT id_kontak,id_penerima, nama, nomor FROM kontak WHERE id_user = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_user);
 $stmt->execute();
@@ -23,8 +24,7 @@ $result = $stmt->get_result();
 // Tampilkan kontak dalam bentuk div
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "<div class='contact' data-id='" . htmlspecialchars($row['nomor']) . "'>"
-             . htmlspecialchars($row['nama']) . "</div>";
+        echo "<div class='contact' data-id='" . htmlspecialchars($row['id_penerima']) . "'>". htmlspecialchars($row['nama']) . "</div>";
     }
 } else {
     echo "<p>Tidak ada kontak.</p>";
