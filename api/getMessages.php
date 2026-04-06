@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/db.php';
 session_start();
 
 if (!isset($_SESSION['id_user'])) {
@@ -6,29 +7,22 @@ if (!isset($_SESSION['id_user'])) {
     exit;
 }
 
-$id_user = (int)$_SESSION['id_user']; // mengambil id user dari session 
-$id_Penerima = (int)$_POST['id_Penerima']; // SEKARANG id_user
+$id_user     = (int)$_SESSION['id_user']; 
+$id_Penerima = (int)$_POST['id_Penerima']; 
 
-$conn = new mysqli("localhost", "root", "muhammadilham2372005", "chat_app");
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
-
-// Query pesan dua arah (SIMPLE)
-$sql = "SELECT id_Pengirim,id_Penerima, Pesan, time_Pengiriman
+$sql = "SELECT id_Pengirim, id_Penerima, Pesan, time_Pengiriman
         FROM pesan
         WHERE (id_Pengirim = ? AND id_Penerima = ?)
            OR (id_Pengirim = ? AND id_Penerima = ?)
         ORDER BY time_Pengiriman ASC";
 
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("iiii", $id_user, $id_Penerima, $id_Penerima, $id_user);//penetapan variabelnya 
-$stmt->execute();
-$result = $stmt->get_result();
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$id_user, $id_Penerima, $id_Penerima, $id_user]);
 
-// Tampilkan pesan
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+$result = $stmt->fetchAll();
+
+if (count($result) > 0) {
+    foreach ($result as $row) {
         $pesan = htmlspecialchars($row['Pesan']);
         $waktu = htmlspecialchars($row['time_Pengiriman']);
 
@@ -47,7 +41,3 @@ if ($result->num_rows > 0) {
 } else {
     echo "<p>Tidak ada Pesan.</p>";
 }
-
-$stmt->close();
-$conn->close();
-?>

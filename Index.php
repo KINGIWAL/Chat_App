@@ -10,7 +10,7 @@ if (!isset($_SESSION['username'])) {
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/Index.css">
     <title>Chat App</title>
 </head>
 
@@ -37,7 +37,7 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
 
-    <!-- Overlay popup -->
+    <!-- Dropdown -->
     <div class="overlay" id="overlay">
         <div class="popup">
             <h2>Tambah Kontak</h2>
@@ -66,13 +66,11 @@ if (!isset($_SESSION['username'])) {
         const chatHeader = document.getElementById('chatHeader');
         const contacts = document.querySelectorAll('.contact');
         const currentUser = Number(<?= json_encode($_SESSION['id_user'] ?? 0) ?>);
-
         let currentContact = null;
         </script>
     
-<script src="sendMessage.js"></script>
-<script src="LoadMessages.js"></script>
-<script src="Dropdown.js"></script>
+<script src="js/Index.js"></script>
+<script src="js/Dropdown.js"></script>
 </body>
 
 </html>

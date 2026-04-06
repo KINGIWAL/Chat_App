@@ -19,7 +19,7 @@ document.getElementById('contactForm').addEventListener('submit', function (e) {
     const nama = document.getElementById('nama').value;
     const nomor = document.getElementById('nomor').value;
     loadContacts();
-    fetch('saveContact.php', {
+    fetch('/Chat_app/api/saveContact.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `nama=${encodeURIComponent(nama)}&nomor=${encodeURIComponent(nomor)}`

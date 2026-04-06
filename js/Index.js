@@ -1,8 +1,7 @@
-
 // LOAD KONTAK ---------------------------------------Berhasil
 // loadContacts untuk menampilkan list nama kontak yang sudah terdaftar
 function loadContacts() {
-    fetch('getContacts.php')
+    fetch('/Chat_app/api/getContacts.php')
         .then(response => response.text())
         .then(data => {
             document.getElementById('contactList').innerHTML = data;//untuk menampilkna datanya di HMTL
@@ -22,7 +21,7 @@ function loadContacts() {
             console.error("Error ambil kontak:", err);
         });
 }
-// pemicu functionnya 
+ 
 loadContacts();
 
 
@@ -34,7 +33,7 @@ loadContacts();
 // Buat koneksi WebSocket ke server
 // Ambil pesan lama dari server (PHP)
 function loadMessages(currentContact) {
-    fetch("getMessages.php", {
+    fetch("/Chat_app/api/getMessages.php", {
         method: "POST",
         body: new URLSearchParams({ id_Penerima: currentContact })
     })
@@ -46,6 +45,9 @@ function loadMessages(currentContact) {
         })
         .catch(error => console.error("Error load messages:", error));
 }
+
+
+
 let socket;
 function connectWebSocket() {
     // Buka koneksi WebSocket (sertakan id_user sebagai query param)
@@ -70,8 +72,7 @@ socket.addEventListener("open", () => {
             bubble.innerHTML = `
             <div class="bubble">${data.text}</div>
             <div class="time">${data.time}</div>
-        `;
-
+            `;
             chatMessages.appendChild(bubble);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
@@ -82,3 +83,36 @@ socket.addEventListener("close", () => {
 });
 }
 connectWebSocket();
+
+
+
+
+
+// Kirim pesan ke server-----------------------------------------------Berhasil
+sendBtn.addEventListener('click', () => {
+    const text = chatInput.value.trim();
+
+    if (!currentContact) {
+        alert("Pilih kontak dulu");
+        return;
+    }
+
+    if (text === '') return;
+
+    if (socket.readyState !== WebSocket.OPEN) {
+        console.warn("Socket belum siap");
+        return;
+    }
+
+    socket.send(JSON.stringify({
+        id_pengirim: currentUser,
+        id_penerima: currentContact,
+        text: text
+    }));
+
+    chatInput.value = '';
+});
+
+chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendBtn.click();
+});
