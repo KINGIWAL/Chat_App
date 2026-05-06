@@ -30,7 +30,7 @@ form.addEventListener('submit', (e) => {
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    window.location.href = "Index1.php"; // pindah manual di JS
+                    window.location.href = "Index.php"; // pindah manual di JS
                 } else {
                     result.textContent = data.message;
                     result.className = 'error';

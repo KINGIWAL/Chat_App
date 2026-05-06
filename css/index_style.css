@@ -1,0 +1,380 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', sans-serif;
+}
+
+/* BODY */
+body {
+    background: #1f212b;
+    color: #e4e6eb;
+}
+
+/* LAYOUT */
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.contacts {
+    width: 260px;
+    background: #252733;
+    padding: 15px;
+    border-right: 1px solid #2f3241;
+    }
+
+.contacts-header {
+    font-size: 18px;
+        font-weight: bold;
+    margin-bottom: 15px;
+        color: #aab2c5;
+}
+
+/* LIST KONTAK */
+.contact-list {
+    display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+.contact {
+    display: flex;
+    justify-content: space-between; /* nama di kiri, opsi di kanan */
+    align-items: center;    
+    padding: 10px;
+    border-radius: 10px;
+    background: #2f3241;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    }
+
+/* HOVER KONTAK */
+.contact:hover {
+    background: #3b3f55;
+        transform: scale(1.02);
+    }
+
+.contact-name {
+    font-size: 15px;
+    color: #e4e6eb;
+    flex: 1;
+}
+.contact-options {
+    flex-shrink: 0; /* jangan mengecil/melipat ke bawah */
+    position: relative;
+}
+.options-btn {
+    background: none;
+    border: none;
+    color: #aab2c5;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+.options-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+.options-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 120%;
+    background: #2a2d3e;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    min-width: 130px;
+    z-index: 100;
+    overflow: hidden;
+    animation: fadeScale 0.2s ease;
+}
+.options-dropdown.show {
+    display: block;
+}
+.options-dropdown a {
+    display: block;
+    padding: 10px 12px;
+    color: #e4e6eb;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.options-dropdown a:hover {
+    background: #4f46e5;
+    color: #fff;
+}
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ================= CHAT ================= */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* HEADER */
+.chat-header {
+    padding: 15px;
+    background: #2a2d3e;
+    border-bottom: 1px solid #3a3d50;
+    font-weight: bold;
+}
+
+/* ================= DROPDOWN ================= */
+.dropdown {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.dropdown button {
+    background: #6366f1;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.dropdown button:hover {
+    background: #4f46e5;
+    transform: scale(1.05);
+}
+
+/* MENU */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    margin-top: 5px;
+    background: #4f5057;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.38);
+    z-index: 1000
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a {
+    display: block ;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.dropdown-content a:hover {
+    background: #3b3f55;
+    border-radius: 10px;
+    color:#8e8e8e;
+}
+/* ================= CHAT AREA ================= */
+.chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* BUBBLE */
+.message {
+    position: relative;
+    max-width: 200px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 18px;
+    animation: fadeIn 0.6s ease;
+    word-wrap: break-word;
+}
+
+/* PESAN SEND */
+.message.sent {
+    background: #6366f1;
+    align-self: flex-end;
+    color: white;
+    border-bottom-right-radius: 1px;
+}
+
+/* PESAN TERIMA */
+.message.received {
+    background: #2f3241;
+    align-self: flex-start;
+    border-bottom-left-radius: 1px;
+}
+
+/* Waktu pesan */
+.time {
+    display: none;
+    padding-top: 7px;
+    font-size: 11px;
+    color: #ffffff85;
+}
+    
+.message:hover .time {
+    display: inline-block;
+    animation: fadeIn 0.3s ease ;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }to {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
+/* ================= INPUT ================= */
+.chat-input {
+    display: flex;
+    padding: 10px;
+    background: #2a2d3e;
+    border-top: 1px solid #3a3d50;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #1f212b;
+    color: white;
+    transition: 0.25s;
+}
+        
+/* FOCUS */
+.chat-input input:focus {
+    box-shadow: 0 0 0 2px #6366f1;
+    transform: scale(1.02);
+}
+
+/* BUTTON */
+.chat-input button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background: #6366f1;
+    color: white;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.chat-input button:hover {
+    background: #4f46e5;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    }
+
+.chat-input button:active {
+    transform: scale(0.95);
+}
+
+/* ================= POPUP ================= */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+.overlay.active {
+    display: flex; /* tampilkan overlay dan popup */
+}
+
+/* POPUP */
+.popup {
+    background: #2a2d3e;
+    padding: 20px;
+    border-radius: 15px;
+    width: 500px;
+    animation: fadeScale 0.3s ease;
+    z-index: 1000;
+    }
+
+.hAddKontak{
+    padding: 10px
+}
+@keyframes fadeScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.popup input {
+    width: 100%;
+    padding: 12px;              /* lebih nyaman untuk teks */
+    margin-bottom: 15px;        /* beri jarak lebih rapi */
+    border-radius: 8px;
+    border: none;
+    background: #1f212b;
+    color: white;
+    font-size: 14px;            /* ukuran teks lebih terbaca */
+    font-family: 'Segoe UI', sans-serif; /* konsisten font */
+}
+
+.popup input:focus {
+    box-shadow: 0 0 0 2px #6366f1;
+}
+
+.popup button {
+    width: 100%;
+    padding: 12px;              /* konsisten dengan input */
+    border: none;
+    background: #6366f1;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 14px;            /* teks tombol lebih jelas */
+    font-weight: bold;          /* tombol terasa lebih tegas */
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.popup button:hover {
+    background: #4f46e5;
+}
+
+.contact-photo {
+    border-radius: 50%;   /* bulat */
+    margin-right: 10px;   /* jarak dengan nama */
+    object-fit: cover;    /* biar proporsional */
+}
+
+
+#editForm{
+margin:10px;
+}
+
+
+

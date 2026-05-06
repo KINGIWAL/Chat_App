@@ -10,23 +10,29 @@
 <body>
     <div class="register-container">
         <h2>Register</h2>
-        <form id="registerForm" method="POST">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter username">
-                <div id="userError" class="error"></div>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter password">
-                <div id="passError" class="error"></div>
-            </div>
-            <button type="submit" class="btn">Register</button>
-            <div id="result"></div>
-        </form>
+<form id="registerForm" method="POST" action="api/Register.php" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Enter username" required>
+        <div id="userError" class="error"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <div id="passError" class="error"></div>
+        </div>
+    <div class="form-group">
+        <label for="foto" class="custom-file-label">Foto Profil</label>
+        <input type="file" id="foto" name="foto" accept="image/*" required>
+    </div>
+    <a href="Form_Login.HTML" class="login-btn">Sign In</a>
+    <button type="submit" class="btn">Register</button>
+    <div id="result"></div>
+    </form>
+
     </div>
 
-    <script src="js/Form_Login.js"></script>
+    <script src="js/Form_Register.js"></script>
 </body>
 
 </html>

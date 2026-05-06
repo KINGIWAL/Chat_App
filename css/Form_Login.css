@@ -1,69 +1,139 @@
-  body {
-      font-family: Arial, sans-serif;
-      background: #1e1e2f;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-  }
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-  .login-container {
-      background: #2c2c3c;
-      padding: 30px;
-      border-radius: 10px;
-      width: 350px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-      color: #fff;
-  }
+/* BACKGROUND */
+body {
+    height: 100vh;
+        background: linear-gradient(135deg, #1e1f26, #2a2d3e);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
 
-  .login-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #3f51b5;
-  }
+/* CONTAINER */
+.login-container {
+    background: #2a2d3e;
+        padding: 30px;
+    border-radius: 15px;
+        width: 320px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        animation: fadeIn 0.6s ease;
+    }
+    
+    /* ANIMASI MASUK */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+        }
+    
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
 
-  .form-group {
-      margin-bottom: 15px;
-  }
+/* TITLE */
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e4e6eb;
+    }
 
-  .form-group label {
-      display: block;
-      margin-bottom: 5px;
-  }
+/* FORM GROUP */
+.form-group {
+    margin-bottom: 15px;
+}
 
-  .form-group input {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-  }
+/* LABEL */
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #aab2c5;
+        font-size: 14px;
+}
 
-  .btn {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background: #3f51b5;
-      color: #fff;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s;
-  }
+/* INPUT */
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #1f212b;
+        color: #fff;
+        transition: all 0.25s ease;
+}
 
-  .btn:hover {
-      background: #303f9f;
-  }
+/* ANIMASI FOCUS INPUT */
+.form-group input:focus {
+    box-shadow: 0 0 0 2px #6366f1;
+    transform: scale(1.02);
+}
 
-  .error {
-      color: #ff5252;
-      font-size: 14px;
-      margin-top: 5px;
-  }
+/* ERROR TEXT */
+.error {
+    font-size: 12px;
+    color: #ff6b6b;
+    margin-top: 3px;
+}
 
-  .success {
-      color: #4caf50;
-      font-size: 14px;
-      margin-top: 5px;
-  }
+/* BUTTON */
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+        background: #6366f1;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    transition: all 0.25s ease;
+    }
+
+/* ANIMASI BUTTON */
+.btn:hover {
+    background: #4f46e5;
+        transform: translateY(-2px) scale(1.03);
+        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+    }
+    
+    .btn:active {
+        transform: scale(0.95);
+    }
+    
+    /* RESULT TEXT */
+    #result {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 13px;
+        color: #aab2c5;
+    }
+
+/* btn_ register  */
+
+a.register-btn {
+    display: inline-block;
+    padding: 7px 7px;
+    background: #6365f133;
+    /* warna utama */
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s ease;
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 4px;
+}
+
+a.register-btn:hover {
+    background: #e5a546;
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(212, 212, 234, 0.3);
+}

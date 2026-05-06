@@ -10,7 +10,7 @@ if (!$id_user) {
     echo "Anda belum login.";
     exit;
 }
-
+// VALIDASI 
 // Ambil id_user dari nomor
 $stmt = $pdo->prepare("SELECT id_user FROM user WHERE nomor_user = ?");
 $stmt->execute([$nomor]);

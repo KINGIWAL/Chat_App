@@ -10,8 +10,8 @@ function loadContacts() {
             contacts.forEach(contact => {
                 contact.addEventListener('click', () => {
                     currentContact = Number(contact.dataset.id);
-                    chatHeader.textContent = "Chat with " + contact.textContent;
-
+                    // chatHeader.textContent = "Chat with " + contact.textContent;
+                    
                     chatMessages.innerHTML = "";
                     loadMessages(currentContact);
                 });
@@ -21,8 +21,8 @@ function loadContacts() {
             console.error("Error ambil kontak:", err);
         });
 }
- 
-loadContacts();
+
+loadContacts(); //untuk menampilkan kontak kontak yang sudah terdata
 
 
 
@@ -30,7 +30,6 @@ loadContacts();
 
 // Load Messages--------------------------------------------berhasil 
 // Ambil pesan dari server
-// Buat koneksi WebSocket ke server
 // Ambil pesan lama dari server (PHP)
 function loadMessages(currentContact) {
     fetch("/Chat_app/api/getMessages.php", {
@@ -51,14 +50,14 @@ function loadMessages(currentContact) {
 let socket;
 function connectWebSocket() {
     // Buka koneksi WebSocket (sertakan id_user sebagai query param)
-    socket = new WebSocket(`ws://192.168.1.3:8081?id_user=${currentUser}`);
-socket.addEventListener("open", () => {
+    socket = new WebSocket(`ws://192.168.1.5:8081?id_user=${currentUser}`);
+    //bagian ini otomatis aktif ketika pertama kali membuka websitenya
+    socket.addEventListener("open", () => {
     console.log("Connected to WebSocket server");
 });
-
+    //bagian ini aktif ketika mengirim pesan
     socket.addEventListener("message", (event) => {
         const data = JSON.parse(event.data);
-
         if (!currentContact) return;
 
         if (
@@ -67,22 +66,30 @@ socket.addEventListener("open", () => {
         ) {
             const isSent = data.id_pengirim == currentUser;
 
-            const bubble = document.createElement('div');
-            bubble.className = `message ${isSent ? 'sent' : 'received'}`;
-            bubble.innerHTML = `
-            <div class="bubble">${data.text}</div>
+            const message = document.createElement('div');
+            message.className = `message ${isSent ? 'sent' : 'received'}`;
+
+            // tampilkan teks + waktu
+            message.innerHTML = `
+            <div class="message">${data.text}</div>
             <div class="time">${data.time}</div>
-            `;
-            chatMessages.appendChild(bubble);
+        `;
+
+            chatMessages.appendChild(message);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
     });
+
+
+
+
+//Otomatis terpanggil jika tertutup atau putus koneksi
 socket.addEventListener("close", () => {
     console.log("Disconnected, reconnecting...");
     setTimeout(connectWebSocket, 2000); // reconnect TANPA reload
 });
 }
-connectWebSocket();
+connectWebSocket();//pemicu
 
 
 
@@ -113,6 +120,66 @@ sendBtn.addEventListener('click', () => {
     chatInput.value = '';
 });
 
+// supaya bisa langsung enter 
 chatInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendBtn.click();
+});
+
+
+
+// HAPUS KONTAK
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete-contact')) {
+        const id = e.target.getAttribute('data-id');
+        if (confirm("Yakin ingin menghapus kontak ini?")) {
+            fetch('/Chat_app/api/delete_contact.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'id=' + encodeURIComponent(id)
+            })
+            .then(res => res.text())
+            .then(msg => {
+                alert(msg);
+                // e.target.parentElement.remove();
+                e.target.closest('.contact').remove();
+
+            });
+        }
+    }
+});
+
+
+
+// submit form edit
+document.getElementById('editForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new URLSearchParams(new FormData(this));
+
+    fetch('/Chat_app/api/edit_contact.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.text())
+    .then(msg => {
+        // update tampilan nama kontak
+        const id = document.getElementById('editId').value;
+        const contact = document.querySelector(`.contact[data-id='${id}']`);
+        contact.querySelector('.contact-name').textContent = document.getElementById('editNama').value;
+        contact.dataset.nomor = document.getElementById('editNomor').value;                 
+        closeEdit();
+    });
+});
+
+function closeEdit() {
+    document.getElementById('editOverlay').classList.remove('active');
+}
+
+
+// klik di luar popup untuk menutup
+document.getElementById('editOverlay').addEventListener('click', function(e) {
+    // jika klik langsung pada overlay (bukan isi popup)
+    if (e.target === this) {
+        closeEdit();
+    }
 });

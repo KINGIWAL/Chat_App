@@ -5,6 +5,10 @@ const userError = document.getElementById('userError');
 const passError = document.getElementById('passError');
 const result = document.getElementById('result');
 
+console.log("Form:", form);
+console.log("Username:", username.value);
+console.log("Password:", password.value);
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     let valid = true;
@@ -22,16 +26,19 @@ form.addEventListener('submit', (e) => {
     }
 
     if (valid) {
-        // Kirim data ke PHP dengan AJAX
+        const formData = new FormData(form); // ambil semua input termasuk file
+
         fetch('api/Register.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `username=${encodeURIComponent(username.value)}&password=${encodeURIComponent(password.value)}`
+            body: formData // kirim langsung FormData
         })
             .then(response => response.text())
             .then(data => {
                 result.textContent = data; // tampilkan pesan dari PHP
                 result.className = data.includes("berhasil") ? 'success' : 'error';
+                if (data.includes("berhasil")) {
+                    window.location.href = "index.php";
+                }
             })
             .catch(err => {
                 result.textContent = "Terjadi kesalahan koneksi!";
