@@ -377,4 +377,30 @@ margin:10px;
 }
 
 
+input[type="file"] {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(39, 24, 106);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+
+}
+
+
+input[type="file"]:hover {
+    box-shadow: 0 0 0 2px #5634ff;
+    transform: scale(1.02);
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+    /* sembunyikan tombol default */
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    display: none;
+    /* sembunyikan tombol "Choose File" di browser berbasis WebKit */
+}
 

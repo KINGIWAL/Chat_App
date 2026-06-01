@@ -50,7 +50,7 @@ function loadMessages(currentContact) {
 let socket;
 function connectWebSocket() {
     // Buka koneksi WebSocket (sertakan id_user sebagai query param)
-    socket = new WebSocket(`ws://192.168.1.5:8081?id_user=${currentUser}`);
+    socket = new WebSocket(`ws://10.12.0.209:8081?id_user=${currentUser}`);
     //bagian ini otomatis aktif ketika pertama kali membuka websitenya
     socket.addEventListener("open", () => {
     console.log("Connected to WebSocket server");

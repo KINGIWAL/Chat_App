@@ -34,7 +34,7 @@ if (!isset($_SESSION['username'])) {
             
             <!-- Dropdown -->
             <div class="dropdown-content">
-                <a href="#" onclick="openPopup()"><img src="icons/person.svg" width="25" alt="Add Contact"></a>   
+                <a href="#" onclick="openPopup()"><img src="icons/Add person.svg" width="25" alt="Add Contact"></a>   
                 <a href="#" onclick="openProfile()"><img src="icons/account.svg" width="25" alt="My Account"></a>
                 <a href="Form_Login.HTML"><img src="icons/logout.svg" width="25" alt="logout"></a>
             </div>
@@ -43,7 +43,7 @@ if (!isset($_SESSION['username'])) {
         
         <div class="chat-input">
             <input type="text" id="chatInput" name="pesan" placeholder="Type a message..."> <!-- tempat menginputkan pesan  -->
-            <button id="sendBtn">Send</button><!-- btn untuk menginput pesan  -->
+            <button id="sendBtn"><img src="icons/send.svg" width="25" alt="Send"></button><!-- btn untuk menginput pesan  -->
         </div>
         <!-- Popup Profile -->
         <div class="overlay" id="profileOverlay">
@@ -98,7 +98,5 @@ if (!isset($_SESSION['username'])) {
 
 <!-- 
 #Langkah selanjutnya verifikasi
--verifikasi juga pada penetapan nomor yang diterima klo sudah ada maka di buat ulang 
-
 
 #fitur mengedit myprofile   -->

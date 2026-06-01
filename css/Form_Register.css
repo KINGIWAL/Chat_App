@@ -159,21 +159,3 @@ a.login-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 5px 15px rgba(212, 212, 234, 0.3);
 }
-
-/* BUTTON CHOSEN FILE   */
-/* .custom-file-label {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #00c9a7, #00695c);
-  color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
-}
-.custom-file-label:hover {
-    background: linear-gradient(135deg, #00e6b8, #00897b);
-    box-shadow: 0 5px 15px rgba(0, 255, 200, 0.4);
-}
-
-*/
