@@ -14,6 +14,7 @@ function loadContacts() {
                     
                     chatMessages.innerHTML = "";
                     loadMessages(currentContact);
+                    openChatMobile();
                 });
             });
         })
@@ -50,7 +51,7 @@ function loadMessages(currentContact) {
 let socket;
 function connectWebSocket() {
     // Buka koneksi WebSocket (sertakan id_user sebagai query param)
-    socket = new WebSocket(`ws://10.12.0.209:8081?id_user=${currentUser}`);
+    socket = new WebSocket(`ws://192.168.1.7:8081?id_user=${currentUser}`);
     //bagian ini otomatis aktif ketika pertama kali membuka websitenya
     socket.addEventListener("open", () => {
     console.log("Connected to WebSocket server");
@@ -71,9 +72,9 @@ function connectWebSocket() {
 
             // tampilkan teks + waktu
             message.innerHTML = `
-            <div class="message">${data.text}</div>
-            <div class="time">${data.time}</div>
-        `;
+    <span>${data.text}</span>
+    <div class="time">${data.time}</div>
+`;
 
             chatMessages.appendChild(message);
             chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -183,3 +184,36 @@ document.getElementById('editOverlay').addEventListener('click', function(e) {
         closeEdit();
     }
 });
+
+
+
+// ================= MOBILE CHAT =================
+
+const contactsPanel = document.querySelector('.contacts');
+const chatPanel = document.querySelector('.chat-container');
+const backBtn = document.getElementById('backBtn');
+
+function openChatMobile() {
+    if (window.innerWidth <= 768) {
+        contactsPanel.classList.add('hidden');
+        chatPanel.classList.add('active');
+
+        if (backBtn) {
+            backBtn.style.display = 'inline-block';
+        }
+    }
+}
+
+if (backBtn) {
+    backBtn.addEventListener('click', () => {
+
+        contactsPanel.classList.remove('hidden');
+        chatPanel.classList.remove('active');
+
+        backBtn.style.display = 'none';
+
+        currentContact = null;
+        chatMessages.innerHTML = '';
+
+    });
+}

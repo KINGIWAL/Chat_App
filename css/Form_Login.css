@@ -8,42 +8,48 @@
 
 /* BACKGROUND */
 body {
-    height: 100vh;
+    min-height: 100vh;
+        min-height: 100dvh;
+        /* lebih stabil di Android */
         background: linear-gradient(135deg, #1e1f26, #2a2d3e);
-        display: flex;
+
+    display: flex;
         justify-content: center;
         align-items: center;
+padding: 15px;
 }
 
 /* CONTAINER */
 .login-container {
     background: #2a2d3e;
-        padding: 30px;
+    padding: 30px;
     border-radius: 15px;
-        width: 320px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        animation: fadeIn 0.6s ease;
+width: 100%;
+    max-width: 320px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.6s ease;
+}
+
+/* ANIMASI MASUK */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
     }
-    
-    /* ANIMASI MASUK */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-        }
-    
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
+}
 
 /* TITLE */
 .login-container h2 {
     text-align: center;
     margin-bottom: 20px;
     color: #e4e6eb;
-    }
+}
 
 /* FORM GROUP */
 .form-group {
@@ -55,25 +61,27 @@ body {
     display: block;
     margin-bottom: 5px;
     color: #aab2c5;
-        font-size: 14px;
+    font-size: 14px;
 }
 
 /* INPUT */
 .form-group input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border-radius: 10px;
     border: none;
     outline: none;
+
     background: #1f212b;
-        color: #fff;
-        transition: all 0.25s ease;
+    color: #fff;
+font-size: 16px;
+    /* mencegah zoom otomatis Android */
+    transition: all 0.25s ease;
 }
 
 /* ANIMASI FOCUS INPUT */
 .form-group input:focus {
     box-shadow: 0 0 0 2px #6366f1;
-    transform: scale(1.02);
 }
 
 /* ERROR TEXT */
@@ -86,25 +94,26 @@ body {
 /* BUTTON */
 .btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 10px;
-        background: #6366f1;
+
+    background: #6366f1;
         color: white;
-        font-weight: bold;
-        cursor: pointer;
+font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
     transition: all 0.25s ease;
-    }
+}
 
 /* ANIMASI BUTTON */
 .btn:hover {
     background: #4f46e5;
-        transform: translateY(-2px) scale(1.03);
-        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
-    }
-    
-    .btn:active {
-        transform: scale(0.95);
+}
+
+.btn:active {
+    transform: scale(0.97);
     }
     
     /* RESULT TEXT */
@@ -115,25 +124,41 @@ body {
         color: #aab2c5;
     }
 
-/* btn_ register  */
-
+/* REGISTER BUTTON */
 a.register-btn {
     display: inline-block;
-    padding: 7px 7px;
+    padding: 8px 10px;
     background: #6365f133;
-    /* warna utama */
     color: white;
-    font-size: 11px;
+font-size: 12px;
     font-weight: bold;
+
     text-decoration: none;
     border-radius: 8px;
+
     transition: 0.3s ease;
-    font-family: 'Segoe UI', sans-serif;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 a.register-btn:hover {
     background: #e5a546;
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(212, 212, 234, 0.3);
 }
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+    .login-container {
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .login-container h2 {
+        font-size: 22px;
+    }
+
+        .form-group input,
+        .btn {
+            padding: 14px;
+        }
+        }

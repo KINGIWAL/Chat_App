@@ -126,14 +126,44 @@ body {
     position: relative;
 }
 
+
 /* HEADER */
 .chat-header {
+    display: flex;
+        align-items: center;
     padding: 15px;
     background: #2a2d3e;
     border-bottom: 1px solid #3a3d50;
+
     font-weight: bold;
+    font-size: 18px;
+    }
+    
+    
+    #chatTitle {
+        flex: 1;
+    }
+    
+    /* Tombol kembali */
+    #backBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+        width: 35px;
+        height: 35px;
+        margin: 5px;
+        background: #6366f1;
+        border: none;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+        border-radius: 12px;
 }
 
+#backBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
 /* ================= DROPDOWN ================= */
 .dropdown {
     position: absolute;
@@ -197,9 +227,10 @@ body {
 /* BUBBLE */
 .message {
     position: relative;
-    max-width: 200px;
+    max-width: 75%;
+        width: fit-content;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 10px 14px;
     border-radius: 15px;
     font-size: 18px;
     animation: fadeIn 0.6s ease;
@@ -404,3 +435,75 @@ input[type="file"]::-webkit-file-upload-button {
     /* sembunyikan tombol "Choose File" di browser berbasis WebKit */
 }
 
+
+/* ================= MOBILE ================= */
+
+@media screen and (max-width: 768px) {
+
+    .app-container {
+        display: block;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    /* Daftar kontak */
+    .contacts {
+        width: 100%;
+        height: 100%;
+        border-right: none;
+    }
+
+    /* Chat disembunyikan awalnya */
+    .chat-container {
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Saat chat dibuka */
+    .chat-container.active {
+        display: flex;
+    }
+
+    /* Saat chat dibuka, sembunyikan kontak */
+    .contacts.hidden {
+        display: none;
+    }
+
+    .chat-header {
+        padding: 15px;
+        font-size: 16px;
+    }
+
+    .message {
+        position: relative;
+        max-width: 75%;
+        width: fit-content;
+
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: break-word;
+
+        padding: 10px 14px;
+        border-radius: 15px;
+    }
+
+    .popup {
+        width: 95%;
+        max-width: 500px;
+    }
+
+    .chat-input input {
+        font-size: 16px;
+        min-height: 48px;
+    }
+
+    .chat-input button {
+        min-height: 48px;
+    }
+
+    .contact-photo {
+        width: 45px;
+        height: 45px;
+    }
+}

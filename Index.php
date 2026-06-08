@@ -10,7 +10,8 @@ if (!isset($_SESSION['username'])) {
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index_style.css?v=2">
     <title>Chat App</title>
 
 </head>
@@ -28,17 +29,38 @@ if (!isset($_SESSION['username'])) {
 
 
         <div class="chat-container">
-            <div class="chat-header" id="chatHeader">💬 My Chat App</div>
-            <div class="dropdown">
-            <button onclick="toggleDropdown()"><img src="icons/menu.svg" width="20" alt="Menu"></button><!-- pemicu dropdown  --> 
-            
-            <!-- Dropdown -->
+
+    <div class="chat-header" id="chatHeader">
+
+        <button id="backBtn" style="display:none;">
+            ⬅
+        </button>
+
+        <span id="chatTitle">
+            💬 My Chat App
+        </span>
+
+        <div class="dropdown">
+            <button onclick="toggleDropdown()">
+                <img src="icons/menu.svg" width="20" alt="Menu">
+            </button>
+
             <div class="dropdown-content">
-                <a href="#" onclick="openPopup()"><img src="icons/Add person.svg" width="25" alt="Add Contact"></a>   
-                <a href="#" onclick="openProfile()"><img src="icons/account.svg" width="25" alt="My Account"></a>
-                <a href="Form_Login.HTML"><img src="icons/logout.svg" width="25" alt="logout"></a>
+                <a href="#" onclick="openPopup()">
+                    <img src="icons/Add person.svg" width="25" alt="Add Contact">
+                </a>
+
+                <a href="#" onclick="openProfile()">
+                    <img src="icons/account.svg" width="25" alt="My Account">
+                </a>
+
+                <a href="Form_Login.HTML">
+                    <img src="icons/logout.svg" width="25" alt="logout">
+                </a>
             </div>
         </div>
+
+    </div>
         <div class="chat-messages" id="chatMessages"><!-- tempat menampilkan pesan  --></div>
         
         <div class="chat-input">

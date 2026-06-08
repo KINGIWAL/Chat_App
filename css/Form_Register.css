@@ -6,156 +6,153 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* BACKGROUND (beda warna dari login) */
+/* BACKGROUND */
 body {
-    height: 100vh;
-        background: linear-gradient(135deg, #1b2d2a, #243c38);
+    min-height: 100vh;
+        min-height: 100dvh;
+        /* lebih stabil di Android */
+        background: linear-gradient(135deg, #1e1f26, #2a2d3e);
+    
         display: flex;
         justify-content: center;
         align-items: center;
+padding: 15px;
 }
+
 /* CONTAINER */
-.register-container {
-    background: #243c38;
-        padding: 30px;
+.login-container {
+    background: #2a2d3e;
+    padding: 30px;
     border-radius: 15px;
-        width: 320px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-        animation: fadeIn 0.6s ease;
+width: 100%;
+    max-width: 320px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    animation: fadeIn 0.6s ease;
+}
+/* ANIMASI MASUK */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
     }
-    
-    /* ANIMASI (SAMA seperti login) */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-        }
-    
-        to {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
+}
 
 /* TITLE */
-.register-container h2 {
+.login-container h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #e4f5f2;
+    color: #e4e6eb;
     }
 
-/* FORM */
+/* FORM GROUP */
 .form-group {
     margin-bottom: 15px;
 }
 
+/* LABEL */
 .form-group label {
     display: block;
     margin-bottom: 5px;
-    color: #9ccfc7;
+    color: #aab2c5;
         font-size: 14px;
 }
 
 /* INPUT */
 .form-group input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border-radius: 10px;
     border: none;
     outline: none;
-    background: #1a2e2b;
-        color: #ffffff;
-        transition: all 0.25s ease;
+background: #1f212b;
+    color: #fff;
+    font-size: 16px;
+    /* mencegah zoom otomatis Android */
+    transition: all 0.25s ease;
+}
+/* ANIMASI FOCUS INPUT */
+.form-group input:focus {
+    box-shadow: 0 0 0 2px #6366f1;
     }
-    
-    /* FOCUS (warna beda dari login) */
-    .form-group input:focus {
-        box-shadow: 0 0 0 2px #2dd4bf;
-        transform: scale(1.02);
-    }
-    
-    .form-group input[type="file"] {
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #1a2e2b;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 100%;
-    }
-    
-    .form-group input[type="file"]:hover {
-        box-shadow: 0 0 0 2px #2dd4bf;
-        transform: scale(1.02);
-    }
-    
-    input[type="file"]::file-selector-button {
-        display: none;
-        /* sembunyikan tombol default */
-    }
-    
-    input[type="file"]::-webkit-file-upload-button {
-        visibility: hidden;
-        /* sembunyikan tombol "Choose File" di browser berbasis WebKit */
-    }
-    
-    /* ERROR */
-    .error {
-        font-size: 12px;
-        color: #ff7b7b;
+/* ERROR TEXT */
+.error {
+    font-size: 12px;
+    color: #ff6b6b;
         margin-top: 3px;
 }
 
 /* BUTTON */
 .btn {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: none;
     border-radius: 10px;
-        background: #2dd4bf;
-        color: #0f172a;
-        font-weight: bold;
-        cursor: pointer;
-    transition: all 0.25s ease;
-    }
+background: #6366f1;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
 
-/* HOVER */
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+/* ANIMASI BUTTON */
 .btn:hover {
-    background: #14b8a6;
-        transform: translateY(-2px) scale(1.03);
-        box-shadow: 0 5px 15px rgba(45, 212, 191, 0.3);
+    background: #4f46e5;
+    }
+.btn:active {
+    transform: scale(0.97);
     }
     
-    /* CLICK */
-    .btn:active {
-        transform: scale(0.95);
-    }
-    
-    /* RESULT */
+        /* RESULT TEXT */
     #result {
         margin-top: 10px;
         text-align: center;
         font-size: 13px;
-        color: #9ccfc7;
-    }
-    
-    a.login-btn {
-        display: inline-block;
-        padding: 7px 7px;
-        background: #6365f133;
-        /* warna utama */
-        color: white;
-        font-size: 11px;
-        font-weight: bold;
-        text-decoration: none;
-        border-radius: 8px;
-        transition: 0.3s ease;
-        font-family: 'Segoe UI', sans-serif;
-        margin-bottom: 4px;
+        color: #aab2c5;
     }
 
-a.login-btn:hover {
+/* REGISTER BUTTON */
+a.register-btn {
+    display: inline-block;
+    padding: 8px 10px;
+        background: #6365f133;
+    color: white;
+font-size: 12px;
+    font-weight: bold;
+
+    text-decoration: none;
+        border-radius: 8px;
+
+    transition: 0.3s ease;
+    margin-bottom: 6px;
+    }
+
+a.register-btn:hover {
     background: #e5a546;
-    transform: scale(1.05);
-    box-shadow: 0 5px 15px rgba(212, 212, 234, 0.3);
 }
+
+/* MOBILE */
+@media (max-width: 480px) {
+
+    .login-container {
+        max-width: 100%;
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .login-container h2 {
+        font-size: 22px;
+    }
+
+                .form-group input,
+                .btn {
+                    padding: 14px;
+                }
+                }
